@@ -25,6 +25,12 @@ test('check that product is filtered according to the search box ', async ({ pag
   await expect(element.mainPage.productTitle.nth(1)).toContainText('adidas');
 });
 
+test('check that main page is opened after clicking continue shopping button', async ({ page }) => {
+  const element = new PageFactory(page);
+  await element.mainPage.searchProductClickView(dataSet.productName);
+  await element.mainPage.continueShopButton.click();
+  await expect(page).toHaveURL('https://rahulshettyacademy.com/client/dashboard/dash');
+});
 
 test('check that number next to the cart is increased', async ({ page }) => {
   const element = new PageFactory(page);
@@ -57,5 +63,8 @@ test('check that product is added and removed from the cart', async ({ page }) =
   await element.ordersPage.searchProductIdAndSelect(orderId);
   expect(orderId.includes(await element.orderDetailsPage.getOrderId())).toBeTruthy();
 });
+
+
+
 
 
