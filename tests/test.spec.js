@@ -48,7 +48,7 @@ test('check that product is added and removed from the cart', async ({ page }) =
   await expect(element.cartPage.textAboutRemoval).toHaveText('No Products in Your Cart !');
 });
 
- test('check that order is created and displayed in the orders', async ({ page }) => {
+ test('check that order is created and displayed in the orders and then deleted', async ({ page }) => {
   const element = new PageFactory(page);
   await element.mainPage.searchProductAddCart(dataSet.productName);
   await element.mainPage.cart.click();
@@ -62,7 +62,15 @@ test('check that product is added and removed from the cart', async ({ page }) =
   await element.createOrderPage.myOrderButton.click();
   await element.ordersPage.searchProductIdAndSelect(orderId);
   expect(orderId.includes(await element.orderDetailsPage.getOrderId())).toBeTruthy();
+  await element.createOrderPage.myOrderButton.click();
+  await element.ordersPage.searchProductIdAndDelete(orderId);
+  await expect(element.ordersPage.textAboutRemoval).toHaveText(' You have No Orders to show at this time. Please Visit Back Us ');
 });
+
+
+
+  
+
 
 
 
