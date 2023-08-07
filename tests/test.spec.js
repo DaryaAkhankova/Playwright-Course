@@ -3,6 +3,7 @@ const { PageFactory } = require('../pageobjects/PageFactory');
 const dataSet = JSON.parse(
 JSON.stringify(require('../test-data/TestData.json')));
 
+
 test.beforeEach(async ({ page }) => {
   const element = new PageFactory(page);
   await element.loginPage.goTo();
@@ -11,6 +12,7 @@ test.beforeEach(async ({ page }) => {
 
 test('check that checkbox on the main page is checked ', async ({ page }) => {
   const element = new PageFactory(page);
+  await element.loginPage.goTo();
   await element.mainPage.checkbox.check();
   await expect(element.mainPage.checkbox).toBeChecked();
 
@@ -18,10 +20,9 @@ test('check that checkbox on the main page is checked ', async ({ page }) => {
 
 test('check that product is filtered according to the search box ', async ({ page }) => {
   const element = new PageFactory(page);
-  await element.mainPage.searchField.click();
   await element.mainPage.searchField.type('adidas',{delay:100});
   await page.keyboard.press('Enter');
-  await expect(element.mainPage.productTitle).toContainText(adidas);
+  await expect(element.mainPage.productTitle.nth(1)).toContainText('adidas');
 });
 
 
