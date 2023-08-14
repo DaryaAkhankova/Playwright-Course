@@ -1,44 +1,40 @@
 const { test, expect} = require('@playwright/test');
 const { PageFactory } = require('../pageobjects/PageFactory');
-const dataSet = JSON.parse(JSON.stringify(require('../test-data/TestData.json')));
+const dataSet = JSON.parse(JSON.stringify(require('../test-data/TestDataE2E.json')));
+
+
+let element;
 
 test.describe('UI tests', () => {
   test.beforeEach(async ({ page }) => {
-    const element = new PageFactory(page);
+    element = new PageFactory(page);
     await element.loginPage.goTo();
     await element.loginPage.validLogin(dataSet.username, dataSet.password);
   });
-  
-  test('check that checkbox on the main page is checked ', async ({ page }) => {
-    const element = new PageFactory(page);
+
+  test('check that checkbox on the main page is checked', async () => {
     await element.mainPage.checkbox.check();
     await expect(element.mainPage.checkbox).toBeChecked();
-  
   });
   
-  test('check that product is filtered according to the search box ', async ({ page }) => {
-    const element = new PageFactory(page);
+  test('check that product is filtered according to the search box', async ({page}) => {
     await element.mainPage.searchField.type('adidas',{delay:100});
     await page.keyboard.press('Enter');
     await expect(element.mainPage.productTitle.nth(1)).toContainText('adidas');
   });
-  
-  test('check that main page is opened after clicking continue shopping button', async ({ page }) => {
-    const element = new PageFactory(page);
+
+  test('check that main page is opened after clicking continue shopping button', async ({page}) => {
     await element.mainPage.searchProductClickView(dataSet.productName);
     await element.mainPage.continueShopButton.click();
     await expect(page).toHaveURL('https://rahulshettyacademy.com/client/dashboard/dash');
   });
-  
-  test('check that number next to the cart is increased', async ({ page }) => {
-    const element = new PageFactory(page);
+
+  test('check that number next to the cart is increased', async () => {
     await element.mainPage.searchProductAddCart(dataSet.productName);
     await expect(element.mainPage.cart).toHaveText('1');
   });
-  
-  
-  test('check that product is added and removed from the cart', async ({ page }) => {
-    const element = new PageFactory(page);
+
+  test('check that product is added and removed from the cart', async () => {
     await element.mainPage.searchProductAddCart(dataSet.productName);
     await element.mainPage.cart.click();
     await expect(element.cartPage.titleOfProduct).toHaveText(dataSet.productName);
@@ -46,8 +42,7 @@ test.describe('UI tests', () => {
     await expect(element.cartPage.textAboutRemoval).toHaveText('No Products in Your Cart !');
   });
   
-   test('check that order is created and displayed in the orders and then deleted', async ({ page }) => {
-    const element = new PageFactory(page);
+   test('check that order is created and displayed in the orders and then deleted', async () => {
     await element.mainPage.searchProductAddCart(dataSet.productName);
     await element.mainPage.cart.click();
     await element.cartPage.checkoutButton.click();

@@ -5,7 +5,7 @@ class MainPage {
     this.productTitle = page.locator('.card-body b');
     this.cart = page.locator('.btn-custom label');
     this.searchField = page.locator('div[class="py-2 border-bottom ml-3"] input[placeholder="search"]');
-    this.checkbox = page.locator('input[type="checkbox"]').nth(1);
+    this.checkbox = page.locator('#sidebar form div:nth-child(3) div:nth-child(3) input[type=checkbox]');
     this.continueShopButton = page.locator('div .continue');
   }
 
