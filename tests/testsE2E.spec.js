@@ -2,7 +2,6 @@ const { test, expect} = require('@playwright/test');
 const { PageFactory } = require('../pageobjects/PageFactory');
 const dataSet = JSON.parse(JSON.stringify(require('../test-data/TestDataE2E.json')));
 
-
 let element;
 
 test.describe('UI tests', () => {
@@ -60,22 +59,3 @@ test.describe('UI tests', () => {
     await expect(element.ordersPage.textAboutRemoval).toHaveText(' You have No Orders to show at this time. Please Visit Back Us ');
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-

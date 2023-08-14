@@ -12,6 +12,9 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.36.2",
-    "allure-playwright": "^2.4.0"
+    "allure-playwright": "^2.4.0",
+    "eslint": "^8.47.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.28.0"
   }
 }

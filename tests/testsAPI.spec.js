@@ -54,5 +54,4 @@ test.describe('API tests', async () => {
     expect(response.status()).toBe(200);
     expect(responseBody.token).toBeTruthy();
   });
-
 });
